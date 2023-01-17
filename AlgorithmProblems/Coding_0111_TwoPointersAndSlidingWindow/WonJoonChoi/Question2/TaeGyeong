@@ -1,0 +1,54 @@
+public class Test234_Palindrome_Linked_List_Two_Pointer {
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode slow = head, fast = head, prev = head;
+        while(fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        if (fast != null) {
+            slow = slow.next;
+        }
+        ListNode temp = reverseNode(head, prev);
+        while (slow != null || temp != null) {
+            if (slow.val != temp.val) {
+                return false;
+            }
+            slow = slow.next;
+            temp = temp.next;
+        }
+        return true;
+    }
+    public ListNode reverseNode(ListNode sp, ListNode ep){
+        ListNode curr = sp;
+        ListNode prev = null;
+        ListNode next = null;
+        while (curr != ep) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        curr.next = prev;
+        return ep;
+    }
+    public class ListNode{
+        int val;
+        ListNode next;
+
+        public ListNode() {
+        }
+
+        public ListNode(int val) {
+            this.val = val;
+        }
+
+        public ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+}
