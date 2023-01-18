@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+
+        StringBuilder sb = new StringBuilder();
+        String temp;
+        String tempRev;
+
+            while(head != null){ //노드가 비어있지 않으면 sb에 그 값을 추가하고 다음 노드로 업데이트
+                 sb.append(head.val);
+                 head = head.next;
+            }
+            
+            temp = sb.toString(); //sb값을 문자열로 저장
+            tempRev = sb.reverse().toString(); //sb reverse값을 문자열로 저장
+        
+            if(tempRev.equals(temp)){
+                return true;
+            }
+            else return false;
+        
+    }
+}
