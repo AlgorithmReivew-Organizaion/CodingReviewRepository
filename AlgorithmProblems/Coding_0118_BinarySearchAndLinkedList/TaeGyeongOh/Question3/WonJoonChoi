@@ -1,0 +1,31 @@
+# https://leetcode.com/problems/odd-even-linked-list/description/
+
+'''
+1. 아이디어 :
+    1) 링크드 리스트를 순회하며, 두번째 인덱스를 Even Head로 만든다.
+    odd, even을 번갈아가며 다음 노드를 연결시키고, 마지막 odd의 even head를 연결시킨다.
+2. 시간복잡도 :
+    1) O(n)
+3. 자료구조 :
+    1) Linked List
+'''
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head==None:
+            return None
+        odd=head
+        even=odd.next
+        evenh=even
+        
+        while odd.next and even.next:
+            odd.next=even.next
+            odd=even.next
+            even.next=odd.next
+            even=odd.next
+        odd.next=evenh
+        return head
