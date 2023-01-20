@@ -1,0 +1,26 @@
+static class Solution {
+        public int trap(int[] height) {
+
+        int answer = 0;
+        int leftMax = -1;
+        int heightLen = height.length;
+        int rightMax = -1;
+        int leftPoint = 0; //배열의 양 끝점을 포인터로 둔다.
+        int rightPoint = heightLen - 1;
+
+        while(leftPoint < rightPoint){
+            leftMax = Math.max(leftMax, height[leftPoint]); //왼쪽의 최대값에는 기존 최대값과 포인터가 이동하면서 해당하는 값을 비교해서 넣어둔다.
+            rightMax = Math.max(rightMax, height[rightPoint]); //오른쪽도 마찬가지
+
+            if(leftMax <= rightMax){ //양쪽의 최대값 중, 작은 쪽을 이동해 나간다.(물이 차는 것은 작은쪽 기준이기 때문)
+                answer += leftMax - height[leftPoint];
+                leftPoint++;
+            }
+            else{
+                answer += rightMax - height[rightPoint];
+                rightPoint--;
+            }
+        }
+        return answer;
+        }
+      }
