@@ -1,0 +1,29 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+
+        ListNode node = null;
+            List<ListNode> list = new ArrayList<>();
+            if(head == null) return head;//head가 비어있으면 반환하고 끝냄
+            node = head;
+            
+            while(node != null){//노드들을 list에 넣는다.
+                list.add(node);
+                node = node.next;
+            }
+
+            int len = list.size();
+            int headIndex = len - (k % len); //k번 순환했을때 head노드가 들어있는 곳의 인덱스값
+            
+            if(len == 1) return head; //노드가 1개밖에 없으면 반환하고 끝
+            
+            if(k % len == 0) return head; //k를 list의 길이로 나눈 것이 0이면 그대로 head반환
+            else{ //아니면 headIndex에 있는 노드를 헤드로 설정하고, list의 마지막 노드를 list의 처음노드로 연결. headIndex바로 전 노드 다음은 null
+                head = list.get(headIndex);
+                list.get(headIndex - 1).next = null;
+                list.get(len -1).next = list.get(0);
+            }
+
+            return head;
+        
+    }
+}
