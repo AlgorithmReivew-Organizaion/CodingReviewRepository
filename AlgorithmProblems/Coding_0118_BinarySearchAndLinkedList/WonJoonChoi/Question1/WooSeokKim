@@ -1,0 +1,26 @@
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+
+        int answer = 0;
+            int min = 1;
+            int max = n;
+
+            while(min <= max){
+                int mid = min + (max - min) / 2; //자바에선 자료형 범위를 넘어갈 수 있기 때문에 (max+min)/2 로 쓰면 안됨!!!
+                if(isBadVersion(mid)){ //만약 그 위치가 불량이고
+                    if(!isBadVersion(mid-1)){ //그 직전이 불량이 아니라면
+                        return mid; //그 위치를 바로 출력하고 끝
+                    }
+                    max = mid - 1;
+                    answer = mid;
+                }
+                else{
+                    min = mid + 1;
+                }
+            }
+            
+            
+            return answer;
+        
+    }
+}
