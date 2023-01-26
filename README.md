@@ -8,9 +8,9 @@ Repository for submitting and reviewing peer answers for coding questions.
 
 <b> Algorithm Categories to cover </b>
 
-- 01/04 Array & Hashing + Stack
-- 01/11 Two Pointers + Sliding Window
-- 01/18 Binary Search + Linked List
+- 01/04 Array & Hashing + Stack v
+- 01/11 Two Pointers + Sliding Window v
+- 01/18 Binary Search + Linked List v
 - 01/25 Tree + Tries
 - 02/01 Heap/Priority Queue + Intervals
 - 02/08 Backtracking
