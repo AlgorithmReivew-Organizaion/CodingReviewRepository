@@ -1,0 +1,45 @@
+import java.util.Arrays;
+import java.util.HashSet;
+
+public class Test268_Missing_Number {
+    //Binary Search를 통한 풀이
+    class Solution {
+        public int missingNumber(int[] nums) {
+            Arrays.sort(nums);
+
+            int left = 0, right = nums.length - 1, mid;
+
+            while (left < right) {
+                mid = left + (right - left) / 2;
+
+                if (nums[mid] == mid) {
+                    left = mid + 1;
+                }
+                else {
+                    right = mid;
+                }
+            }
+            if (left == nums[left]) {
+                return left + 1;
+            }
+            else {
+                return left;
+            }
+        }
+    }
+    //HashSet을 통한 풀이
+    class Solution2 {
+        public int missingNumber2(int[] nums) {
+            HashSet<Integer> set = new HashSet<>();
+            for (int key:nums) {
+                set.add(key);
+            }
+            for (int i = 1; i <= nums.length; i++) {
+                if (!set.contains(i)) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+    }
+}
