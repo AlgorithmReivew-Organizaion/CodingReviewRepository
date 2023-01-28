@@ -1,0 +1,21 @@
+public class Solution {
+        public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+            ListNode result = null;
+            HashSet<ListNode> nextAddress = new HashSet<>();
+
+            while(headA != null){ //링크드리스트 A의 각 노드가 null이 아니면 set에 저장하고 다음으로 넘어감
+                nextAddress.add(headA);
+                headA = headA.next;
+            }
+
+            while(headB != null){ //링크드리스트 B가 set에 있으면 그 노드를 result에 저장하고 끝. 아니면 다음으로 넘어감
+                if(nextAddress.contains(headB)){
+                    result = headB;
+                    break;
+                }
+                headB = headB.next;
+            }
+
+            return result;
+        }
+    }
