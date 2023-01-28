@@ -1,0 +1,33 @@
+class Solution {
+        public ListNode oddEvenList(ListNode head) {
+            ListNode temp = null;
+            ArrayList<ListNode> arrOdd = new ArrayList<>();
+            ArrayList<ListNode> arrEven = new ArrayList<>();
+
+            if(head == null || head.next == null) { //만약 헤드 노드가 null이거나, 헤드노드 하나뿐인 리스트라면 헤드 반환 후 끝
+                return head;
+            }
+
+            temp = head;
+
+            while (temp != null) { //홀수번째 노드는 arrOdd 리스트에, 짝수번째 노드는 arrEven 리스트에 넣는다.
+                arrOdd.add(temp);
+                temp = temp.next;
+                arrEven.add(temp);
+                temp = temp.next;
+            }
+
+
+            for(int i = 0; i < arrOdd.size() -1; i++){ //홀수번째 노드들 먼저 쭉 연결하고
+                arrOdd.get(i).next = arrOdd.get(i + 1);
+            }
+            arrOdd.get(arrOdd.size() - 1).next =arrEven.get(0); //마지막 노드는 arrEven리스트의 첫번째 노드와 연결
+
+            for(int i = 0; i < arrEven.size() -1; i++){ //그리고 짝수번째 노드들 쭉 연결
+                arrEven.get(i).next = arrEven.get(i+1);
+            }
+            arrEven.get(arrEven.size()-1).next = null; //마지막 노드 다음은 없도록 한다.
+
+            return head;
+        }
+    }
