@@ -1,0 +1,32 @@
+class Solution {
+        public ListNode mergeNodes(ListNode head) {
+            ListNode temp = head.next;
+            ArrayList<Integer> list = new ArrayList<>();
+            int sum = 0;
+
+            while(temp != null){ //헤드 다음의 노드부터 값이 0이 아니면
+                if(temp.val != 0){
+                    sum += temp.val; //sum에 합을 계산
+                    temp = temp.next;
+                }
+                else { //노드의 값이 0인 순간
+                    list.add(sum); //sum값을 list에 저장하고 sum값 초기화
+                    sum = 0;
+                    temp = temp.next;
+                }
+            }
+            //이때 list에는 linked리스트로 연결할 값들만 들어가 있음
+
+            temp = head;
+            for(int i = 0; i < list.size(); i++){
+                temp.val = list.get(i); //head값부터 리스트의 값을 하나씩 넣어준다.
+                if(i == list.size() - 1) { //리스트의 값을 다 넣으면
+                    temp.next = null; //다음에 연결될 노드가 없도록 설정하고 끝냄
+                    break;
+                }
+                temp = temp.next;
+            }
+
+            return head;
+        }
+    }
