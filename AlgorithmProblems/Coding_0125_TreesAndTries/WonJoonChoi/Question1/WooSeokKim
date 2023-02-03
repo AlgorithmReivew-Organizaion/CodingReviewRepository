@@ -1,0 +1,32 @@
+class Solution {
+    static StringBuilder sb = new StringBuilder();
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+
+            String temp1;
+            String temp2;
+						//둘다 루트노드가 null이면 true 반환
+            if(p==null && q==null)return true;
+						
+						//각각의 트리를 순환해서 저장한 단어가 서로 같은지 여부 확인
+            sb = new StringBuilder();
+            preOrder(p);
+            temp1 = sb.toString();
+            sb = new StringBuilder();
+            preOrder(q);
+            temp2 = sb.toString();
+
+            if(temp1.equals(temp2)) return true;
+            else return false;
+        
+    }
+    public static void preOrder(TreeNode head){
+        if(head == null) { //null인 경우는 알파벳 a를 붙여준다.
+            sb.append('a');
+            return;
+        }
+        sb.append(head.val); //전위순회하면서 값을 sb에 이어붙임
+        preOrder(head.left);
+        preOrder(head.right);
+
+    }
+}
