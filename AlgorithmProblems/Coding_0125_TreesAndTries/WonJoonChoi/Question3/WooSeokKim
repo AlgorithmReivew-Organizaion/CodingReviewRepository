@@ -1,0 +1,19 @@
+class Solution {
+    boolean check = false;
+
+        public boolean isValidBST(TreeNode root) {
+
+            check = dfsCheck(root, null, null);
+
+            return check;
+        }
+
+        private boolean dfsCheck(TreeNode root, Integer min, Integer max){
+            if(root == null) return true;
+            
+						//min값과 max 값이 null이 아니라면 각각 재귀를 통해 root.val의 값을 넣어주고 다음값과 비교하여 조건에 맞는지 확인
+            if((min != null && root.val <= min) || (max != null && root.val >= max)) return false;
+            
+            return dfsCheck(root.left, min, root.val) && dfsCheck(root.right, root.val, max);
+        }
+}
