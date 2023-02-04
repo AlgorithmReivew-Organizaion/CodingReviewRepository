@@ -1,0 +1,32 @@
+# https://leetcode.com/problems/sort-characters-by-frequency/
+
+'''
+1. 아이디어 :
+    1)  Counter를 사용하여 문자열의 각 문자의 빈도수를 구한다.
+        Counter를 배열로 반환하고 정렬한다.
+        배열의 각 element안에 빈도수 만큼 ans에 추가한다.
+2. 시간복잡도 :
+    1)  O(n) + O(nlogn) + O(n) = O(nlogn)
+    -   Counter를 사용하여 문자열의 각 문자의 빈도수를 구하는 시간 + 정렬 시간 + 정답 String 만드는 시간
+3. 자료구조 :
+    1) 해시
+'''
+
+from collections import Counter
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        c = Counter(s)
+        print(c)
+
+        temp=[]
+        for key,val in hash.items():
+            temp.append([key,val])
+
+        temp.sort(key = lambda x : x[1], reverse=True)
+        print(temp)
+
+        ans = ""
+        for chars in temp:
+            for i in range(chars[1]):
+                ans+=chars[0]
+        return ans
