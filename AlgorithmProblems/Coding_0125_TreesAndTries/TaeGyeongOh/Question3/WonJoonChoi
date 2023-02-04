@@ -1,0 +1,45 @@
+# https://www.acmicpc.net/problem/1991
+
+'''
+1. 아이디어 :
+    1) 트리를 먼저 만들고 전위순회, 중위순회, 후위순회를 재귀를 이용하여 구현.
+    2) 트리없이 dictionary에 구현.
+2. 시간복잡도 :
+    1) O(n)
+3. 자료구조 :
+    1) Dictionary
+'''
+
+
+import sys
+input = sys.stdin.readline
+
+def preorder(node):
+    print(node, end='')
+    if tree[node][0] != '.':
+        preorder(tree[node][0])
+    if tree[node][1] != '.':
+        preorder(tree[node][1])
+
+def inorder(node):
+    if tree[node][0] != '.':
+        inorder(tree[node][0])
+    print(node, end='')
+    if tree[node][1] != '.':
+        inorder(tree[node][1])
+
+def postorder(node):
+    if tree[node][0] != '.':
+        postorder(tree[node][0])
+    if tree[node][1] != '.':
+        postorder(tree[node][1])
+    print(node, end='')
+
+
+tree={}
+for i in range(int(input())):
+    item, left, right = input().split()
+    tree[item] = [left, right]
+preorder('A'), print()
+inorder('A'), print()
+postorder('A')
