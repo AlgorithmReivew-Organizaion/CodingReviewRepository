@@ -1,0 +1,31 @@
+class Solution {
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+
+            int row = intervals.length; //행렬의 세로 길이
+            ArrayList<int[]> arr = new ArrayList<>(); //최종 답이 될 2차원 배열
+
+            for(int i = 0; i < row; i++){
+								//배열을 돌면서 안겹치면 바로 arr에 넣고
+                if(intervals[i][1] < newInterval[0]) arr.add(intervals[i]);
+                else if(intervals[i][0] > newInterval[1]) arr.add(intervals[i]);
+                //겹치면 newInterval의 시작점과 끝점을 갱신해나간다.
+								else{
+                    newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+                    newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+                }
+            }
+						//다 돌고 나면 최종적인 newInterval도 arr에 넣어주고, 시작값 기준으로 정렬해주면 끝!
+            arr.add(newInterval);
+            
+            arr.sort(new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    
+                    return o1[0] > o2[0] ? 1 : -1;
+                }
+            });
+
+            return arr.toArray(new int[arr.size()][]);
+        
+    }
+}
