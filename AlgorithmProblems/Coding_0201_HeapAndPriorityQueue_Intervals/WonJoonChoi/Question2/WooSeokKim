@@ -1,0 +1,28 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+
+        int row = points.length; //세로길이
+            int col = points[0].length; //가로길이
+            int[][] answer = new int[k][2];
+            PriorityQueue<int[]> pointsOrderedByDistance = new PriorityQueue<>(new Comparator<int[]>() {
+                @Override
+                public int compare(int[] o1, int[] o2) {
+                    return (((o1[0] * o1[0]) + (o1[1] * o1[1])) >= ((o2[0] * o2[0]) + (o2[1] * o2[1]))) ? 1 : -1;
+                }
+            });  //PrioryQueue의 정렬기준을 원점과의 거리로 설정한다!
+            
+            //점들을 차례로 우선순위 큐에 넣어주고
+            for(int i = 0; i < row; i++){
+                pointsOrderedByDistance.add(points[i]);
+            }
+            
+            //k개 빼서 answer 배열에 넣어주고, answer배열 반환하면 끝!
+            for(int j = 0; j < k; j++){
+                answer[j] = pointsOrderedByDistance.poll();
+            }
+
+
+            return answer;
+        
+    }
+}
