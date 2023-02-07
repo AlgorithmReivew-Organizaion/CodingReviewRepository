@@ -1,0 +1,37 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        int answer = 0;
+            PriorityQueue<Integer> weights = new PriorityQueue<>(Collections.reverseOrder());
+            int a = 0;
+            int b = 0;
+
+            if(stones == null) return 0;  //배열이 비어있다면 0
+            if(stones.length == 1) return stones[0]; //돌이 처음부터 1개라면 바로 끝
+						
+						//돌의 무게들을 큐에 넣어준다.
+            for(int i = 0; i < stones.length; i++){
+                weights.add(stones[i]);
+            }
+
+            while(true){
+								//큐가 비어있는지 확인 후
+                if(weights.peek() == null) return 0;
+								//비어있지 않다면 제일 큰 돌 꺼내서 저장
+                a = weights.poll();
+							
+								//다음이 비어있는지 확인 후
+                if(weights.peek() == null) {
+                    return a;
+                }
+								//비어있지 않다면 변수에 먼저 저장
+                b = weights.peek();
+
+                if(a == b) weights.poll(); //둘의 무게가 같다면 b를 빼고 끝
+                if(a != b) { //둘의 무게가 다르다면
+                    weights.poll(); //b를 꺼내고
+                    weights.add(Math.abs(a-b)); //두 돌을 서로 부딪힌 결과를 저장
+                }
+            }
+   
+	}
+}
