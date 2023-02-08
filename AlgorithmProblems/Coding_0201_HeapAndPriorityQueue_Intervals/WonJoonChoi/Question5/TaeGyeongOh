@@ -1,0 +1,20 @@
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+       PriorityQueue<int[]> queue = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+            for (int[] arr:intervals) {
+                queue.offer(arr);
+            }
+            int[] tmp = queue.poll();
+            int answer = 0, temp = tmp[1];
+            while (!queue.isEmpty()) {
+                int[] arr = queue.poll();
+                if (arr[0] < temp) {
+                    answer++;
+                }
+                else {
+                    temp = arr[1];
+                }
+            }
+            return answer; 
+    }
+}
