@@ -1,0 +1,38 @@
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+
+        TreeMap<String, Integer> map = new TreeMap<>();
+            List<String> answer = new ArrayList<>();
+						//먼저 단어들과 등장횟수를 map에 저장
+            for(int i = 0; i < words.length; i++){
+                if(map.containsKey(words[i])){
+                    int temp = map.get(words[i]);
+                    map.put(words[i], temp + 1);
+                    continue;
+                }
+                map.put(words[i], 1);
+            }
+
+						//map의 entryset을 가져와 조건에 맞게렬
+            ArrayList<Map.Entry> temp = new ArrayList<>(map.entrySet());
+            temp.sort(new Comparator<Map.Entry>() {
+                @Override
+                public int compare(Map.Entry o1, Map.Entry o2) {
+                    if(o1.getValue() == o2.getValue()){
+                        String temp1 = String.valueOf(o1.getKey());
+                        String temp2 = String.valueOf(o2.getKey());
+                        if(temp1.compareTo(temp2) < 0) return -1;
+                        else return 1;
+                    }
+                    return (int)o2.getValue() - (int)o1.getValue();
+                }
+            });
+            //주어진 횟수만큼 가져와서 answer에 저장 후 반환
+            for(int i = 0; i < k; i++){
+                answer.add(String.valueOf(temp.get(i).getKey()));
+            }
+            
+            return answer;
+        
+    }
+}
