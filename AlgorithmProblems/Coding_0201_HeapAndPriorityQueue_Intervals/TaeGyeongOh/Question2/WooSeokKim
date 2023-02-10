@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+        int testCase = Integer.parseInt(input.readLine());
+        //트리맵에 값과, 그 값의 개수를 저장한다.
+        TreeMap<Integer, Integer> check;
+
+        for (int i = 0; i < testCase; i++) {
+            int temp = Integer.parseInt(input.readLine());
+            check = new TreeMap<>();
+
+            for(int j = 0; j < temp; j++){
+                st = new StringTokenizer(input.readLine());
+                String word = st.nextToken();
+                int value = Integer.parseInt(st.nextToken());
+
+                if(word.equals("I")){
+                    if(check.containsKey(value)){
+                        int a = check.get(value);
+                        check.put(value, a+1);
+                    }
+                    else check.put(value, 1);
+                }
+                else if(word.equals("D")){
+                    //지울때 1이면 lastkey에서 개수 감소, -1이면 firstkey에서 감소하고, 개수가 0이면 트리맵에서 지운다.
+                    if(!check.isEmpty()) {
+                        if (value == 1) {
+                            int a = check.get(check.lastKey());
+                            check.put(check.lastKey(), a - 1);
+                            if(a - 1 == 0) check.remove(check.lastKey());
+                            continue;
+                        }
+
+                        if(value == -1){
+                            int a = check.get(check.firstKey());
+                            check.put(check.firstKey(), a - 1);
+                            if(a - 1 == 0) check.remove(check.firstKey());
+                        }
+                    }
+                }
+            }
+            //마지막에 맵이 비어있다면 EMPTY, 아니라면 순차적으로 lastkey와 firstkey를 출력하면 됨
+            if(check.isEmpty()) sb.append("EMPTY").append("\n");
+            else sb.append(check.lastKey()).append(" ").append(check.firstKey()).append("\n");
+
+        }
+        System.out.println(sb);
+    }
+}
