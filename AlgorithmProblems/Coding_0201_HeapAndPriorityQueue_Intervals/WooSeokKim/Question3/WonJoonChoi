@@ -1,0 +1,38 @@
+# https://leetcode.com/problems/relative-ranks/
+
+'''
+1. 아이디어 :
+    1)  해시맵을 사용하여 키에 score를, 값에 gold, silver, bronze, 4, 5, ... 을 저장한다.
+        score의 순서에 따라 해시맵에서 값을 꺼내온다.
+2. 시간복잡도 :
+    1)  O(nlogn) + O(n) + O(n) = O(nlogn)
+    -   정렬 시간 + 탐색 시간 + 배열에 담는 시간
+3. 자료구조 :
+    1) 해시맵
+'''
+
+
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+
+        #반대로 정렬
+        sorted_score = sorted(score, reverse=True)
+
+        #해시맵에 score를 key로, gold, silver, bronze, 4, 5, ... 을 value로 저장
+        hash = {}
+        for i in range(len(sorted_score)):
+            if i==0:
+                hash[sorted_score[i]]="Gold Medal"
+            elif i==1:
+                hash[sorted_score[i]]="Silver Medal"
+            elif i==2:
+                hash[sorted_score[i]]="Bronze Medal"
+            else:
+                hash[sorted_score[i]]=str(i+1)
+
+        #score의 순서에 따라 해시맵에서 값을 꺼내온다.
+        ans=[]
+        for s in score:
+            ans.append(hash[s])
+
+        return ans
