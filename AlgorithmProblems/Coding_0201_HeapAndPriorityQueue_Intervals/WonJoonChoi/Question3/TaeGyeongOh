@@ -1,0 +1,79 @@
+package PriorityQueue;
+
+import java.util.*;
+
+public class Test621_Task_Scheduler {
+    class Solution {
+        public int leastInterval(char[] tasks, int n) {
+            HashMap<Character, Integer> map = new HashMap<>();
+            PriorityQueue<Task> priorityQueue = new PriorityQueue<>((o1, o2) -> o2.val - o1.val);
+            ArrayList<Task> list = new ArrayList<>();
+            for (char key:tasks) {
+                map.put(key, map.getOrDefault(key, 0) + 1);
+            }
+            for (char key :map.keySet()) {
+                priorityQueue.offer(new Task(key, map.get(key)));
+            }
+            int work = 0;
+            while (!priorityQueue.isEmpty()) {
+                for (int i = 0; i <= n; i++) {
+                    if (!priorityQueue.isEmpty()) {
+                        Task task = priorityQueue.poll();
+                        task.val -= 1;
+                        if (task.val > 0) {
+                            list.add(task);
+                        }
+                    }
+                    work++;
+                    if (priorityQueue.isEmpty() && list.isEmpty()) {
+                        break;
+                    }
+                }
+                priorityQueue.addAll(list);
+                list.clear();
+            }
+            return work;
+        }
+        static class Task {
+            char work;
+            int val;
+
+            public Task(char work, int val) {
+                this.work = work;
+                this.val = val;
+            }
+        }
+
+    }
+}
+/*
+static class Solution {
+        public static int leastInterval(char[] tasks, int n) {
+            int[] frequency = new int[26];
+            for (char task:tasks) {
+                frequency[task - 'A']++;
+            }
+            System.out.println(Arrays.toString(frequency));
+            int maxFrequency = 0;
+            int maxCount = 0;
+            for (int i = 0; i < 26; i++) {
+                if (frequency[i] > maxFrequency) {
+                    maxFrequency = frequency[i];
+                    maxCount = 1;
+                }
+                else if (frequency[i] == maxFrequency) {
+                    maxCount++;
+                }
+            }
+            int partCount = maxFrequency - 1;
+            int partLength = n - (maxCount - 1);
+            int emptySlots = partCount * partLength;
+            int availableTasks = tasks.length - maxFrequency * maxCount;
+            int idles = emptySlots - availableTasks;
+            if (idles < 0) {
+                idles = 0;
+            }
+            return tasks.length + idles;
+        }
+    }
+    */
