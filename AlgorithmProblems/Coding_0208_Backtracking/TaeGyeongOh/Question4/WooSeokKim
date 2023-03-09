@@ -1,0 +1,42 @@
+class Solution {
+        HashMap<String, String> map = new HashMap<>();
+        int length = 0;
+        List<String> answer = new ArrayList<>();
+
+        public List<String> letterCombinations(String digits) {
+
+            map.put("2", "abc");
+            map.put("3", "def");
+            map.put("4", "ghi");
+            map.put("5", "jkl");
+            map.put("6", "mno");
+            map.put("7", "pqrs");
+            map.put("8", "tuv");
+            map.put("9", "wxyz");
+
+            length = digits.length();
+
+            if(length == 0) return answer;
+
+            dfs(digits, "");
+
+            return answer;
+        }
+        public void dfs(String digits, String words) {
+            //기존 문자열의 길이와 같은 경우
+            if (length == words.length()) {
+                answer.add(words); // 만들어진 문자열 add
+                return;
+            }
+
+            // 매개변수 digits 의 첫번째 숫자에 해당하는 알파벳 구하기
+            String target = map.get(String.valueOf(digits.charAt(0)));
+
+            // 알파벳만큼 반복문
+            for (int i = 0; i < target.length(); i++) {
+                // 1 인덱스부터 잘라서 넘기기
+                dfs(digits.substring(1), words + target.charAt(i));
+            }
+        }
+        
+    }
