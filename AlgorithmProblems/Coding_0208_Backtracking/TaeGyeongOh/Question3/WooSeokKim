@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+public class Main {
+
+    static StringTokenizer st;
+    static StringBuilder sb = new StringBuilder();
+    static int N;
+    static int M;
+
+    static int[] arr;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+        st = new StringTokenizer(input.readLine());
+
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+
+        arr = new int[N];
+
+        st = new StringTokenizer(input.readLine());
+
+        for(int i = 0; i < N; i ++){
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+
+        Arrays.sort(arr); //배열을 오름차순으로 정렬
+        int[] arrSizeOfM = new int[M]; //길이 M인 수열을 만들 것이므로 크기 M인 배열을 만들어서 dfs에 전달
+        dfs(0, arrSizeOfM);
+        System.out.println(sb);
+    }
+
+    public static void dfs(int depth, int[] arrSizeOfM){ //여기서 depth는 수열의 길이라고 생각하면 된다.
+        if(depth == M){
+            for(int i = 0; i < M; i++){
+                sb.append(arrSizeOfM[i]).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+
+        int check = -1; //중복을 체크하기 위한 변수 선언
+
+        for(int i = 0; i < N; i++){
+            if(check != arr[i]){ //입력받아서 오름차순으로 정렬한 배열을 돌면서 확인
+                check = arr[i];
+                arrSizeOfM[depth] = check;
+                dfs(depth+1, arrSizeOfM);
+            }
+        }
+
+    }
+}
