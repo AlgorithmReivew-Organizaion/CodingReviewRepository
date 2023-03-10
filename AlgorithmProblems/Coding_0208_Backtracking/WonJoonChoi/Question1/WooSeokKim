@@ -1,0 +1,21 @@
+class Solution {
+   List<List<Integer>> answer = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+
+        public List<List<Integer>> subsets(int[] nums) {
+
+            backTracking(nums, temp, 0);
+
+            return answer;
+        }
+
+        public void backTracking(int[] nums, List<Integer> temp, int startIndex){
+            answer.add(new ArrayList<>(temp));
+
+            for(int i = startIndex; i < nums.length; i++){
+                temp.add(nums[i]);
+                backTracking(nums, temp, i+1);
+                temp.remove(temp.size()-1);
+            }
+        }
+}
