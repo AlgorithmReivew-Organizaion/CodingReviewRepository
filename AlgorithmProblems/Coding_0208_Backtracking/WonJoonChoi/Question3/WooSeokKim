@@ -1,0 +1,31 @@
+class Solution {
+    List<List<Integer>> answer = new ArrayList<>();
+
+        public List<List<Integer>> permute(int[] nums) {
+
+            backTracking(nums, new ArrayList<>());
+            
+            return answer;
+        }
+        
+        public void backTracking(int[] nums, List<Integer> temp){
+            
+            if(temp.size() == nums.length){
+                answer.add(new ArrayList<>(temp));
+                return;
+            }
+            
+            for(int i = 0; i < nums.length; i++){
+                int tempNum = nums[i];
+                
+                if(temp.contains(tempNum)){
+                    continue;
+                }
+                
+                temp.add(tempNum);
+                backTracking(nums, temp);
+                temp.remove((Integer)tempNum);
+            }
+            
+        }
+}
