@@ -1,6 +1,6 @@
 ---
-name: Feat issue template
-about: Describe this issue template's purpose here.
+name: Qeuustion issue template
+about: URL and assignee
 title: "[Question]"
 labels: Question
 assignees: ''
