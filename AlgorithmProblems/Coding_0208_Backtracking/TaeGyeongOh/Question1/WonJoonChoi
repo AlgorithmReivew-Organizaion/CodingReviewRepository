@@ -1,0 +1,44 @@
+# https://www.acmicpc.net/problem/9663
+
+'''
+1. 아이디어 :
+    유명한 백트래킹 문제이다.
+2. 시간복잡도 :
+    O(n!) - python3 시간초과. pypy3로 풀었다.
+3. 자료구조 :
+    HashSet
+'''
+
+import sys
+input = sys.stdin.readline
+
+col = set()
+diag = set()  # r+c 대각선
+adiag = set()  # r-c 반대각선
+
+n = int(input())
+ans = []
+
+def backtracking(r):
+    if r == n:
+        ans.append(1)
+        return
+
+    for c in range(n):
+        if c in col or r+c in diag or r-c in adiag:
+             continue # 뒤에 나오는 코드 무시하고 다시 for문으로.
+            
+        #추가해주는 작업
+        col.add(c)
+        diag.add(r+c)
+        adiag.add(r-c)
+
+        backtracking(r+1)
+        
+        #제거해주는 작업
+        col.remove(c)
+        diag.remove(r+c)
+        adiag.remove(r-c)
+
+backtracking(0)
+print(sum(ans))
