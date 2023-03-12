@@ -1,0 +1,53 @@
+class Solution {
+
+    public static int[] arr;
+
+        public static List<List<String>> solveNQueens(int n) {
+            List<List<String>> answer = new ArrayList<>();
+            arr = new int[n];
+
+            queenProblem(0, n, answer);
+
+            return answer;
+        }
+
+        public static void queenProblem(int depth, int n, List<List<String>> answer){
+            if(depth ==  n){
+                String[] temp = new String[n];
+                List<String> partAnswer = new ArrayList<>();
+                
+                for(int i = 0; i < n; i++){
+                    Arrays.fill(temp,".");
+                    temp[arr[i]] = "Q";
+                    String builder = "";
+                    
+                    for(int j = 0; j < n; j++){
+                        builder = builder + temp[j];
+                    }
+                    partAnswer.add(builder);
+                }
+                answer.add(new ArrayList<>(partAnswer));
+                return;
+            }
+
+            for(int i = 0; i < n; i++){
+                arr[depth] = i;
+                if(check(depth)){
+                    queenProblem(depth+1, n, answer);
+                }
+            }
+        }
+
+        public static boolean check(int colNum){
+            for(int i = 0; i < colNum; i++){
+                if(arr[colNum] == arr[i]){
+                    return false;
+                }
+                else if(Math.abs(colNum-i) == Math.abs(arr[colNum]-arr[i])){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+}
